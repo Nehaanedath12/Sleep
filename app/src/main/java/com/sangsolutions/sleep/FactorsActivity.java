@@ -62,20 +62,20 @@ public class FactorsActivity extends AppCompatActivity {
             }
         }
 
-        binding.doneB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                @SuppressLint({"NewApi", "LocalSuppress"})
-                List<Factor> matchesBody= list.stream()
-                        .filter(p -> p.isbSelected()).collect(Collectors.toList());
-                List<Factor>mainList=new ArrayList<>();
-                for (int i=0;i<matchesBody.size();i++){
-                    mainList.add(new Factor(matchesBody.get(i).getName() ,matchesBody.get(i).getId(),matchesBody.get(i).isbSelected()  ));
-                    if (i + 1 == matchesBody.size()) {
-                            FactorSingleton.getInstance().setList(mainList);
-                            finish();
-                        }
-                }
+        binding.doneB.setOnClickListener(view1 -> {
+            @SuppressLint({"NewApi", "LocalSuppress"})
+            List<Factor> matchesBody= list.stream()
+                    .filter(p -> p.isbSelected()).collect(Collectors.toList());
+            List<Factor>mainList=new ArrayList<>();
+            for (int i=0;i<matchesBody.size();i++){
+                mainList.add(new Factor(matchesBody.get(i).getName() ,matchesBody.get(i).getId(),matchesBody.get(i).isbSelected()  ));
+                if (i + 1 == matchesBody.size()) {
+                        FactorSingleton.getInstance().setList(mainList);
+                        finish();
+                    }
+            }
+            if(matchesBody.size()==0){
+                Toast.makeText(FactorsActivity.this, getString(R.string.select_factors), Toast.LENGTH_SHORT).show();
             }
         });
 
